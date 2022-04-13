@@ -1,5 +1,88 @@
-<html>
-    <body>
-        <p>Hello, world.</p>
-    </body>
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"
+          integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+            integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p"
+            crossorigin="anonymous"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"
+            integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+            crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                // customised options
+                // • auto-render specific keys, e.g.:
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                // • rendering keys, e.g.:
+                throwOnError: false,
+                globalGroup: true,
+                fleqn: true
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div>
+    \[
+    \newcommand{\adjub}[1]{\text{adj}\left(#1\right)}
+    \newcommand{\detb}[1]{\text{det}\left(#1\right)}
+    \newcommand{\levi}{\varepsilon}
+    \newcommand{\kron}{\delta}
+    \newcommand{\tensor}[1]{\mathbf{#1}}
+    \newcommand{\invtensor}[1]{\mathbf{#1}^{-1}}
+    \newcommand{\tderiv}[2]{\frac{d #1}{d #2}}
+    \newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+    \newcommand{\tderivtb}[2]{\tderiv{\left(#1\right)}{#2}}
+    \newcommand{\tderivbb}[2]{\tderiv{#1}{\left(#2\right)}}
+    \newcommand{\tderivb}[2]{\tderiv{\left(#1\right)}{\left(#2\right)}}
+    \newcommand{\pderivtb}[2]{\pderiv{\left(#1\right)}{#2}}
+    \newcommand{\pderivbb}[2]{\pderiv{#1}{\left(#2\right)}}
+    \newcommand{\pderivb}[2]{\pderiv{\left(#1\right)}{\left(#2\right)}}
+    \]
+</div>
+<h2>Tensor Identities</h2>
+<h3>Levi-Civita Symbol</h3>
+<p>
+    $$\begin{aligned}
+    \levi_{ij}\levi_{ij} &= 2 &\\
+    \levi_{ij}\levi_{mn} &= \kron_{im}\kron_{jn}-\kron_{in}\kron_{jm} &\\
+    \levi_{ijk}\levi_{ijk} &= 3 &\\
+    \levi_{ijk}\levi_{ijt} &= 2\kron_{kt} &\\
+    \levi_{ijk}\levi_{ist} &= \kron_{js}\kron_{kt}-\kron_{jt}\kron_{ks} &\\
+    \levi_{ijk}\levi_{rst} &= \kron_{ir}\kron_{js}\kron_{kt} - \kron_{ir}\kron_{jt}\kron_{ks}
+    + \kron_{is}\kron_{jt}\kron_{kr} - \kron_{is}\kron_{jr}\kron_{kt}
+    + \kron_{it}\kron_{jr}\kron_{ks} - \kron_{it}\kron_{js}\kron_{kr} &
+    \end{aligned}$$
+</p>
+
+<h3>Determinant</h3>
+<p>
+    $$\begin{aligned}
+    \detb{\tensor{A}} &= \frac{1}{6} \levi_{ijk} \levi_{rst} A_{ir} A_{js} A_{kt} \\
+    \detb{\tensor{A}} &= \levi_{ijk} A_{1i} A_{2j} A_{3k} \\
+    \pderivtb{\detb{\tensor{A}}}{A_{ij}} &= \detb{\tensor{A}} A^{-1}_{ji}
+                                          = \detb{\tensor{A}} \tensor{A}^{-T}
+    \end{aligned}$$
+</p>
+
+<h3>Adjugate</h3>
+<p>
+    $$\begin{aligned}
+    \adjub{\tensor{A}} &= \detb{\tensor{A}}\invtensor{A} &\\
+    \adjub{\tensor{A}}_{ij} &= \frac{1}{2} \levi_{imn}\levi_{jst} A_{ms} A_{nt} &
+    \end{aligned}
+    $$
+</p>
+
+</body>
 </html>
